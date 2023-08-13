@@ -17,16 +17,19 @@ def janken_game(draw)
     player_hand = gets.chomp.to_i
     computer_hand = rand(3)
     
-    if player_hand == 3
-        puts "ゲームを終了します"
-        return 3
-    elsif not(player_hand == 0 || player_hand == 1 || player_hand == 2)
-        until player_hand == 0 || player_hand == 1 || player_hand == 2 do
+    if not(player_hand == 0 || player_hand == 1 || player_hand == 2 || player_hand == 3)
+        until player_hand == 0 || player_hand == 1 || player_hand == 2 || player_hand == 3 do
             puts "0~3 のどれかの数字を入力して下さい"
             puts "0(グー) 1(チョキ) 2(パー) 3(戦わない) "
             player_hand = gets.chomp.to_i
         end
     end
+    
+    if player_hand == 3
+        puts "ゲームを終了します"
+        return 3
+        exit
+    end   
 
     if draw
         puts "ショ！"
@@ -50,6 +53,7 @@ def hoi_game(result)
     puts "0(上) 1(下) 2(左) 3(右) "
     player_direction = gets.chomp.to_i
     computer_direction =rand(4)
+   
     puts "ホイ！"
     puts "--------------------------------------------------"
     puts "あなた：#{direction[player_direction]}"
@@ -63,7 +67,7 @@ def hoi_game(result)
         return 1
     elsif result == 1 && player_direction == computer_direction
         puts "あなたの負け"
-        return 1
+        return 0
     else
         puts "もう一回！"
         return 1
@@ -75,7 +79,7 @@ end
 def game()
     janken_result = ""
     hoi_result = ""
-    until janken_result ==  0 && hoi_result == 0
+    until hoi_result == 0
         janken_result = janken_game(false)        
         while janken_result == 2
             janken_result = janken_game(true)
